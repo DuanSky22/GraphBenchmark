@@ -29,9 +29,8 @@ public interface PathTransformer {
     /**
      * get the path of this graph defined by {@link GraphTemplate}
      * @param folder the folder that holds this graph.
-     * @param template the definition of this graph.
-     * @return the file path which stored the graph defined
-     * by this template.
+     * @param template
+     * @return
      */
     String getPath(String folder,GraphTemplate template);
 
@@ -41,7 +40,7 @@ public interface PathTransformer {
      * @param folder the folder that holds this graph.
      * @param template the definition of this graph.
      * @param number the part number of this files.
-     * @return the file path which stored the graph defined
+     * @return the file path which stored the edges.txt of a graph defined
      * by this template.
      */
     String getPath(String folder,GraphTemplate template,int number);

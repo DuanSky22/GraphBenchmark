@@ -6,6 +6,7 @@ import com.duansky.graph.benchmark.components.PathTransformer;
 import com.duansky.graph.benchmark.util.Files;
 
 import java.io.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by SkyDream on 2017/3/17.
@@ -23,10 +24,11 @@ public class DefalutGraphMerger implements GraphMerger {
         final String prefix = pathTransformer.getPath(folder,template);
         //find all the splits.
         File base = new File(folder);
-        File[] parts = base.listFiles(new FileFilter() {
+        final File[] parts = base.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.getPath().startsWith(prefix);
+                String[] list = pathname.getName().split("-");
+                return pathname.getPath().startsWith(prefix) && Pattern.compile("[0-9]*").matcher(list[list.length-1]).matches();
             }
         });
         PrintWriter writer = Files.asPrintWriter(prefix);
@@ -38,7 +40,7 @@ public class DefalutGraphMerger implements GraphMerger {
                 String temp = "";
                 while(temp != null) {
                     temp = reader.readLine();
-                    if(temp != null) writer.write(temp);
+                    if(temp != null) writer.write(temp+"\n");
                 }
                 writer.flush();
                 reader.close();

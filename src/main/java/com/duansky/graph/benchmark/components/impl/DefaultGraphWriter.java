@@ -50,6 +50,17 @@ public class DefaultGraphWriter implements GraphWriter {
 
     @Override
     public void writeAsFiles(String folder, GraphTemplate template, int parts,boolean withEdgeValue) {
+        //write the edge of this graph.
+        writeEdgeWithParts(folder,template,parts,withEdgeValue);
+        //write the vertex of this graph.
+        PrintWriter vertexWriter =
+                Files.asPrintWriter(pathTransformer.getVertexPath(folder,template));
+        if(vertexWriter != null){
+            writeVertex(vertexWriter,template);
+        }
+    }
+
+    private void writeEdgeWithParts(String folder, GraphTemplate template, int parts,boolean withEdgeValue){
         //check folder exists.
         Files.checkAndCreateFolder(folder);
         if(parts < 0) throw new IllegalArgumentException("the parts must large than 0!");
@@ -74,24 +85,20 @@ public class DefaultGraphWriter implements GraphWriter {
                             writer = Files.asPrintWriter(pathTransformer.getPath(folder,template,part));
                         }
                         if(RND.nextBoolean())
-                            writer.write(String.format("%s,%s,%s\n", i, j,withEdgeValue?RND.nextInt(100):""));
+                            writer.write(String.format("%s,%s,%s\n", i, j,withEdgeValue?(RND.nextInt(100)+1):""));
                         else
-                            writer.write(String.format("%s,%s,%s\n", j, i,withEdgeValue?RND.nextInt(100):""));
+                            writer.write(String.format("%s,%s,%s\n", j, i,withEdgeValue?(RND.nextInt(100)+1):""));
                         writer.flush();
                     }
                 }
             }
         }
-
-
-
-
     }
 
     private void writeVertex(PrintWriter writer, GraphTemplate template){
         int n = template.getVertexNumber();
         for(int i = 0; i < n; i++){
-            writer.write(i+"\n");
+            writer.write(i+","+1+"\n");
         }
         writer.close();
     }

@@ -16,4 +16,4 @@ out/
 target/
 flink-gelly/
 .git/
-
+src/main/java/META-INF/

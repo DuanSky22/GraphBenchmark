@@ -30,6 +30,7 @@ public class DefaultPathTransformer implements PathTransformer {
         return getPath(folder,template)+"-edges.txt";
     }
 
+    @Override
     public String getPath(String folder,GraphTemplate template){
         return String.format("%s%sgraph-%s-%s",
                 folder,
