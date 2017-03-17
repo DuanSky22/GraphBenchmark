@@ -11,6 +11,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.duansky:hazelcast.graphflow:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.hazelcast:hazelcast-client:3.7.2" level="project" />
+    <orderEntry type="library" name="Maven: com.hazelcast:hazelcast:3.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-java:1.1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-core:1.1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-annotations:1.1.3" level="project" />
