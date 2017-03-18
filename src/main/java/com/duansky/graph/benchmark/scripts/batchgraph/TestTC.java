@@ -4,7 +4,9 @@ import com.duansky.graph.benchmark.components.GraphTemplate;
 import com.duansky.graph.benchmark.components.impl.DefaultTemplate;
 import com.duansky.graph.benchmark.scripts.AbstractScript;
 import com.duansky.graph.benchmark.util.Contract;
+import com.duansky.graph.benchmark.util.Files;
 import org.apache.flink.api.common.JobExecutionResult;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.graph.Graph;
 import org.apache.flink.graph.library.clustering.directed.TriangleCount;
 
@@ -42,8 +44,8 @@ public class TestTC extends AbstractScript {
         try {
             //generate the graph of this template.
             Graph graph = graphGenerator.generateGraph(env,
-                    transformer.getPath(Contract.DATA_FOLDER_GELLY,template),
-                    transformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
+                    graphPathTransformer.getPath(Contract.DATA_FOLDER_GELLY,template),
+                    graphPathTransformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
             //run algorithm on this graph.
             TriangleCount tc = (TriangleCount) graph.run(new TriangleCount());
 
@@ -53,6 +55,9 @@ public class TestTC extends AbstractScript {
             //get the job result and its id.
             JobExecutionResult result = env.getLastJobExecutionResult();
             String jobId = result.getJobID().toString();
+
+            String resultPath = resultPathTransformer.getPath(name,template,Contract.DATA_FOLDER_GELLY);
+            Files.writeAsTxt(resultPath,tc.getResult()+"");
 
             return String.format("test for graph(%s,%s)\t%s\t%s\t%s\n",
                     template.getVertexNumber(),

@@ -48,8 +48,8 @@ public class TestDD extends AbstractScript {
         try {
             //generate the graph of this template.
             Graph graph = graphGenerator.generateGraph(env,
-                    transformer.getPath(Contract.DATA_FOLDER_GELLY,template),
-                    transformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
+                    graphPathTransformer.getPath(Contract.DATA_FOLDER_GELLY,template),
+                    graphPathTransformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
 
             //run algorithm on this graph.
             DataSet<Vertex<IntValue, Double>> calcutateResult =
@@ -57,7 +57,7 @@ public class TestDD extends AbstractScript {
                     .setIncludeZeroDegreeVertices(true)
                     .run(graph.getUndirected());
             calcutateResult.print();
-            calcutateResult.writeAsCsv(transformer.getPath(Contract.DATA_FOLDER_GELLY,template)+"-dd-result.txt", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+            calcutateResult.writeAsCsv(resultPathTransformer.getPath(name,template,Contract.DATA_FOLDER_GELLY), FileSystem.WriteMode.OVERWRITE).setParallelism(1);
 
 //            //trigger this algorithm.
 //            env.execute("single source shortest path");

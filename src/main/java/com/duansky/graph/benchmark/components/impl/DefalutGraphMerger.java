@@ -2,7 +2,7 @@ package com.duansky.graph.benchmark.components.impl;
 
 import com.duansky.graph.benchmark.components.GraphMerger;
 import com.duansky.graph.benchmark.components.GraphTemplate;
-import com.duansky.graph.benchmark.components.PathTransformer;
+import com.duansky.graph.benchmark.components.GraphPathTransformer;
 import com.duansky.graph.benchmark.util.Files;
 
 import java.io.*;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class DefalutGraphMerger implements GraphMerger {
 
-    private PathTransformer pathTransformer = DefaultPathTransformer.getInstance();
+    private GraphPathTransformer graphPathTransformer = DefaultGraphPathTransformer.getInstance();
 
     private static final DefalutGraphMerger INSTANCE = new DefalutGraphMerger();
     public static DefalutGraphMerger getInstance(){return INSTANCE;}
@@ -21,7 +21,7 @@ public class DefalutGraphMerger implements GraphMerger {
     @Override
     public void merge(String folder, GraphTemplate template) {
         //get all the splits prefix,also as the integrated file name.
-        final String prefix = pathTransformer.getPath(folder,template);
+        final String prefix = graphPathTransformer.getPath(folder,template);
         //find all the splits.
         File base = new File(folder);
         final File[] parts = base.listFiles(new FileFilter() {

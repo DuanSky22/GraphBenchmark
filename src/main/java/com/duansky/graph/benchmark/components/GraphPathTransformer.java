@@ -5,7 +5,7 @@ package com.duansky.graph.benchmark.components;
  * This interface is used by {@link GraphWriter}.
  * Created by SkyDream on 2016/11/1.
  */
-public interface PathTransformer {
+public interface GraphPathTransformer {
     /**
      * get the file path which stored the verities of a graph defined
      * by {@link GraphTemplate} .

@@ -3,9 +3,11 @@ package com.duansky.graph.benchmark.scripts;
 
 import com.duansky.graph.benchmark.components.GraphGenerator;
 import com.duansky.graph.benchmark.components.GraphTemplate;
-import com.duansky.graph.benchmark.components.PathTransformer;
+import com.duansky.graph.benchmark.components.GraphPathTransformer;
+import com.duansky.graph.benchmark.components.ResultPathTransformer;
+import com.duansky.graph.benchmark.components.impl.DefaultResultPathTransformer;
 import com.duansky.graph.benchmark.components.impl.DefaultGraphGenerator;
-import com.duansky.graph.benchmark.components.impl.DefaultPathTransformer;
+import com.duansky.graph.benchmark.components.impl.DefaultGraphPathTransformer;
 import com.duansky.graph.benchmark.driver.GraphTemplateFactory;
 import com.duansky.graph.benchmark.util.Contract;
 import org.apache.flink.api.java.ExecutionEnvironment;
@@ -21,7 +23,8 @@ public abstract class AbstractScript implements Script{
 
     /** tools **/
     public static final GraphGenerator graphGenerator = DefaultGraphGenerator.getInstance();
-    public static final PathTransformer transformer = DefaultPathTransformer.getInstance();
+    public static final GraphPathTransformer graphPathTransformer = DefaultGraphPathTransformer.getInstance();
+    public static final ResultPathTransformer resultPathTransformer = DefaultResultPathTransformer.getInstance();
 
 
     /**environment**/

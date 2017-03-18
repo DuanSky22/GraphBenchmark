@@ -11,6 +11,7 @@ import com.duansky.graph.benchmark.scripts.batchgraph.TestTC;
 public class BatchTestDriver {
 
     public static void main(String[] args){
+        args = new String[]{"sssp"};
         if(args == null || args.length == 0)
             throw new IllegalArgumentException("the input args error!");
         String script = args[0];

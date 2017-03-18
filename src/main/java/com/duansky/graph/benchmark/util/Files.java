@@ -28,6 +28,12 @@ public class Files {
         }
     }
 
+    public static void writeAsTxt(String path,String data){
+        PrintWriter writer = asPrintWriter(path);
+        writer.write(data);
+        writer.close();
+    }
+
     public static BufferedReader asBufferedReader(File file){
         try {
             if(!file.exists()) {

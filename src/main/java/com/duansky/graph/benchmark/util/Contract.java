@@ -29,4 +29,7 @@ public interface Contract {
      */
     String TRIANGLE_COUNT_RESULT = BASE_FOLD
             + File.separator + "triangle_count_test.txt";
+
+    String CHECKER_RESULT = BASE_FOLD +
+            File.separator + "check";
 }

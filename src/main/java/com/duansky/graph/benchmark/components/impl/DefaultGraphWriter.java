@@ -3,7 +3,7 @@ package com.duansky.graph.benchmark.components.impl;
 
 import com.duansky.graph.benchmark.components.GraphTemplate;
 import com.duansky.graph.benchmark.components.GraphWriter;
-import com.duansky.graph.benchmark.components.PathTransformer;
+import com.duansky.graph.benchmark.components.GraphPathTransformer;
 import com.duansky.graph.benchmark.util.Files;
 import com.duansky.graph.benchmark.util.Maths;
 
@@ -18,7 +18,7 @@ public class DefaultGraphWriter implements GraphWriter {
     private static Random RND = new Random();
     private static int THRESHOLD = 1000;
 
-    private PathTransformer pathTransformer = DefaultPathTransformer.getInstance();
+    private GraphPathTransformer graphPathTransformer = DefaultGraphPathTransformer.getInstance();
 
     private static DefaultGraphWriter INSTANCE = new DefaultGraphWriter();
 
@@ -33,7 +33,7 @@ public class DefaultGraphWriter implements GraphWriter {
 
         //write the edge of this graph.
         PrintWriter edgeWriter =
-                Files.asPrintWriter(pathTransformer.getEdgePath(folder,template));
+                Files.asPrintWriter(graphPathTransformer.getEdgePath(folder,template));
         if(edgeWriter != null){
             int n = template.getVertexNumber();
             if(n <= THRESHOLD) writeEdgeDirectly(edgeWriter,template);
@@ -42,7 +42,7 @@ public class DefaultGraphWriter implements GraphWriter {
 
         //write the vertex of this graph.
         PrintWriter vertexWriter =
-                Files.asPrintWriter(pathTransformer.getVertexPath(folder,template));
+                Files.asPrintWriter(graphPathTransformer.getVertexPath(folder,template));
         if(vertexWriter != null){
             writeVertex(vertexWriter,template);
         }
@@ -54,7 +54,7 @@ public class DefaultGraphWriter implements GraphWriter {
         writeEdgeWithParts(folder,template,parts,withEdgeValue);
         //write the vertex of this graph.
         PrintWriter vertexWriter =
-                Files.asPrintWriter(pathTransformer.getVertexPath(folder,template));
+                Files.asPrintWriter(graphPathTransformer.getVertexPath(folder,template));
         if(vertexWriter != null){
             writeVertex(vertexWriter,template);
         }
@@ -72,7 +72,7 @@ public class DefaultGraphWriter implements GraphWriter {
             long single = total / parts; //the number of edge for every part.
             int part = 1, current = 0;
             //write the edge of this graph.
-            PrintWriter writer = Files.asPrintWriter(pathTransformer.getPath(folder,template,part));
+            PrintWriter writer = Files.asPrintWriter(graphPathTransformer.getPath(folder,template,part));
             for(int i = 0; i < n-1; i++){
                 for(int j = i+1; j < n; j++){
                     if(RND.nextDouble() <= p) {
@@ -82,7 +82,7 @@ public class DefaultGraphWriter implements GraphWriter {
                             current = 0;
                             part++;
                             writer.close();
-                            writer = Files.asPrintWriter(pathTransformer.getPath(folder,template,part));
+                            writer = Files.asPrintWriter(graphPathTransformer.getPath(folder,template,part));
                         }
                         if(RND.nextBoolean())
                             writer.write(String.format("%s,%s,%s\n", i, j,withEdgeValue?(RND.nextInt(100)+1):""));

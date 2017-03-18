@@ -9,10 +9,8 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.graph.Graph;
 import org.apache.flink.graph.Vertex;
-import org.apache.flink.graph.asm.degree.annotate.undirected.VertexDegree;
 import org.apache.flink.graph.library.PageRank;
 import org.apache.flink.types.IntValue;
-import org.apache.flink.types.NullValue;
 
 import java.io.File;
 
@@ -50,17 +48,19 @@ public class TestPR extends AbstractScript {
         try {
             //generate the graph of this template.
             Graph graph = graphGenerator.generateGraph(env,
-                    transformer.getPath(Contract.DATA_FOLDER_GELLY,template),
-                    transformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
+                    graphPathTransformer.getPath(Contract.DATA_FOLDER_GELLY,template),
+                    graphPathTransformer.getVertexPath(Contract.DATA_FOLDER_GELLY,template));
 
             //run algorithm on this graph.
             DataSet<Vertex<IntValue, Double>> calcutateResult =
                     new PageRank<IntValue>(0.2,100).run(graph);
             calcutateResult.print();
-            calcutateResult.writeAsCsv(transformer.getPath(Contract.DATA_FOLDER_GELLY,template)+"-pr-result.txt", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+            calcutateResult.writeAsCsv(
+                    resultPathTransformer.getPath(name,template,Contract.DATA_FOLDER_GELLY),
+                    FileSystem.WriteMode.OVERWRITE).setParallelism(1);
 
-//            //trigger this algorithm.
-//            env.execute("single source shortest path");
+            //trigger this algorithm.
+            env.execute("single source shortest path");
 
             //get the job result and its id.
             JobExecutionResult result = env.getLastJobExecutionResult();
